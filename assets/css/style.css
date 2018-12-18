@@ -8,9 +8,9 @@ header h1 {
     background: url(../images/full-bloom.png);
 }
 
-#questionBox h2, #questionBox div {
+/* #questionBox h2, #questionBox div {
     text-align:center;
-}
+} 
 
 #questionBox div, #questionBox div:hover {
     margin:1rem;
@@ -22,7 +22,16 @@ header h1 {
 
 #questionBox div:hover {
     border:2px black dotted;
-    /*background-color:white;*/
+    background-color:white;
+}
+*/
+
+.answerContainer {
+    /* text-align:center;
+    background-color:#4aaaa5; */
+    font-weight:500;
+    padding:1rem;
+    /* color: white; */
 }
 
 .correct {
