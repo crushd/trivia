@@ -12,15 +12,29 @@ header h1 {
     text-align:center;
 }
 
+#questionBox div, #questionBox div:hover {
+    margin:1rem;
+}
+
 #questionBox div {
-    margin:2px;
     border:2px black solid;
 }
 
 #questionBox div:hover {
-    margin:2px;
     border:2px red dotted;
-    background-color:white;
+    /*background-color:white;*/
+}
+
+.correct {
+    background-color:green;
+    color:white;
+    font-weight:bold;
+}
+
+.incorrect {
+    background-color:red;
+    color:white;
+    font-weight:bold;
 }
 
 header, footer {
