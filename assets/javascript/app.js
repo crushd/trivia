@@ -74,19 +74,19 @@ $(document).ready(function() {
     getQuestion();
 
     $("#answer1").on("click", function() {
-        console.log(answerList[0]);
+        //console.log(answerList[0]);
         checkAnswer(answerList[0]);
         
         if (isCorrect) {
             $(this).addClass( "correct" );
         } else {
-            $("#answer1").addClass( "incorrect" );
+            $(this).addClass( "incorrect" );
         }
 
     });
 
     $("#answer2").on("click", function() {
-        console.log(answerList[1]);
+        //console.log(answerList[1]);
         checkAnswer(answerList[1]);
         
         if (isCorrect) {
@@ -97,7 +97,7 @@ $(document).ready(function() {
     });
 
     $("#answer3").on("click", function() {
-        console.log(answerList[2]);
+        //console.log(answerList[2]);
         checkAnswer(answerList[2]);
         
         if (isCorrect) {
@@ -108,7 +108,7 @@ $(document).ready(function() {
     });
 
     $("#answer4").on("click", function() {
-        console.log(answerList[3]);
+        //console.log(answerList[3]);
         checkAnswer(answerList[3]);
         
         if (isCorrect) {
