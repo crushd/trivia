@@ -1,14 +1,29 @@
 
+html,body {
+    height:100%;
+    width:100%;
+}
+
+/* header {
+    background: url(../images/spiration_dark.png);
+} */
 
 header h1 {
     font-family: 'Luckiest Guy', cursive;
+    padding:1em 0;
+}
+
+#question-container {
+    height:75%;
 }
 
 .jumbotron {
-    background: url(../images/full-bloom.png);
+    background: url(../images/pow-star.png);
     border-top:3px #666 solid;
     border-bottom:3px #666 solid;
+    height:100%;
 }
+
 
 /* #questionBox h2, #questionBox div {
     text-align:center;
