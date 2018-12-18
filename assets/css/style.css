@@ -1,0 +1,28 @@
+
+
+header h1 {
+    font-family: 'Luckiest Guy', cursive;
+}
+
+.jumbotron {
+    background: url(../images/full-bloom.png);
+}
+
+#questionBox h2, #questionBox div {
+    text-align:center;
+}
+
+#questionBox div {
+    margin:2px;
+    border:2px black solid;
+}
+
+#questionBox div:hover {
+    margin:2px;
+    border:2px red dotted;
+    background-color:white;
+}
+
+header, footer {
+    text-align:center;
+}
