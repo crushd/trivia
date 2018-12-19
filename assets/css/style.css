@@ -24,6 +24,10 @@ header h1 {
     height:100%;
 }
 
+#gameTimer {
+    padding:0 0 1rem; 0;
+    font-family: 'Luckiest Guy', cursive;
+}
 
 /* #questionBox h2, #questionBox div {
     text-align:center;

@@ -3,6 +3,9 @@
 var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
+var gameTimer = 5;
+var correctCount = 0;
+var incorrectCount = 0;
 
 // get a random number between a minimum and maximum value
 function getRandomNumber(min,max) {
@@ -44,13 +47,37 @@ function getQuestion() {
 
         //console.log("Answers: " + answerList + ". Correct: " + correctAnswer);
         console.log("Good luck.");
-        
-        //return answerList;
+
+        // start the clock
+        startTimer();
 
     });
 
     
 
+}
+
+function startTimer() {
+    answerTimer = setInterval(function() {
+        $("#gameTimer").text(gameTimer);
+        gameTimer--;
+
+        if (gameTimer < 0) {
+            clearInterval(answerTimer);
+            $("#gameTimer").text("Time's up!");
+            timesUp();
+        }
+
+    },1000);
+}
+
+function timesUp() {
+    console.log("Time is up!");
+    
+    // time is up.
+    // display correct answer countdown 10 seconds.
+    // run getQuestion() for a new try
+    
 }
 
 function checkAnswer(answer) {
