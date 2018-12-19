@@ -4,8 +4,14 @@ var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
 var newGameTimer = 10;
+var newNextQuestionTimer = 3;
+
+var maxQuestions = 3;
+var questionCount = 0;
+
 var gameTimer = newGameTimer;
-var nextQuestionTimer = 5;
+var nextQuestionTimer = newNextQuestionTimer;
+
 var correctCount = 0;
 var incorrectCount = 0;
 
@@ -14,7 +20,33 @@ function getRandomNumber(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
+function gameOver() {
+    // game is over
+    clearInterval(answerTimer);
+
+}
+
 function getQuestion() {
+    
+    questionCount++;
+
+    console.log(questionCount);
+
+    if (questionCount === maxQuestions) {
+        console.log("Game over");
+        gameOver();
+    }
+
+    answerList = [];
+
+    $("#answerStatus").text("");
+    $("#answerResult").text("");
+    $("#triviaQuestion").text("Loading...");
+    $("#answer1").removeClass("correct incorrect").text("Loading...");
+    $("#answer2").removeClass("correct incorrect").text("Loading...");
+    $("#answer3").removeClass("correct incorrect").text("Loading...");
+    $("#answer4").removeClass("correct incorrect").text("Loading...");
+    $("#answersContainer").show();
 
     // Get a random question
     var queryURL = "https://opentdb.com/api.php?amount=1&type=multiple";
@@ -51,6 +83,7 @@ function getQuestion() {
         console.log("Good luck.");
 
         // start the clock
+        
         startTimer();
 
     });
@@ -60,6 +93,9 @@ function getQuestion() {
 }
 
 function startTimer() {
+
+    gameTimer = newGameTimer;
+
     answerTimer = setInterval(function() {
         $("#gameTimer").text(gameTimer);
         gameTimer--;
@@ -70,34 +106,38 @@ function startTimer() {
             gameTimer = newGameTimer;
             timesUp();
         }
-
     },1000);
 }
 
 function timesUp() {
-    console.log("Time is up!");
+    console.log("Time's up!");
     
     // time is up.
     // display correct answer countdown seconds.
     // run getQuestion() for a new try
-    nextQuestion();
+    
+    console.log("Correct: " + correctCount);
+    console.log("Incorrect: " + incorrectCount);
+    
+    $("#answersContainer").hide();
+    checkAnswer();
 }
 
 function nextQuestion() {
-    nextQuestionTimer = newGameTimer;
+    nextQuestionTimer = newNextQuestionTimer;
+    //clearInterval(answerTimer);
 
     nextQuestionDelay = setInterval(function() {
         
-        $("#gameTimer").text("Get ready, next question in " + nextQuestionTimer + "...");
+        $("#gameTimer").text("Next question in " + nextQuestionTimer + "...");
         nextQuestionTimer--;
 
-        if (nextQuestionTimer === 0) {
+        if (nextQuestionTimer < 0) {
             clearInterval(nextQuestionDelay);
             getQuestion();
         }
 
     },1000);
-
 
 }
 
@@ -105,11 +145,45 @@ function checkAnswer(answer) {
     // code to match the user's answer to the correctAnswer variable.
 
     if (answer === correctAnswer) {
+            
+        clearInterval(answerTimer);
+
         isCorrect = true;
-        
+        correctCount++;
+
+        console.log("Correct: " + correctCount);
+        console.log("Incorrect: " + incorrectCount);
+
+        $("#answerStatus").text("Nice work, that's correct!");
+        $("#answerResult").html(correctAnswer);
+        $("#answersContainer").hide();
+
+        nextQuestion();
+
     } else {
+
+        clearInterval(answerTimer);
+
         isCorrect = false;
+        incorrectCount++;
+
+        // console.log("Correct: " + correctCount);
+        // console.log("Incorrect: " + incorrectCount);
+        //console.log("Answer: " + answer);
+
+        if (answer == null) {
+            $("#answerStatus").text("You ran out of time.");
+        } else {
+            $("#answerStatus").text("Sorry, that isn't correct");
+        }
         
+        nextQuestion();
+        
+        $("#answersContainer").hide();
+        $("#answerResult").html("The correct answer was " + correctAnswer);
+        
+        //nextQuestion();
+
     }
 
     //console.log(isCorrect);
@@ -124,12 +198,13 @@ $(document).ready(function() {
     $("#answer1").on("click", function() {
         //console.log(answerList[0]);
         checkAnswer(answerList[0]);
-        
+
         if (isCorrect) {
             $(this).addClass( "correct" );
         } else {
             $(this).addClass( "incorrect" );
         }
+
 
     });
 
