@@ -3,7 +3,9 @@
 var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
-var gameTimer = 5;
+var newGameTimer = 10;
+var gameTimer = newGameTimer;
+var nextQuestionTimer = 5;
 var correctCount = 0;
 var incorrectCount = 0;
 
@@ -65,6 +67,7 @@ function startTimer() {
         if (gameTimer < 0) {
             clearInterval(answerTimer);
             $("#gameTimer").text("Time's up!");
+            gameTimer = newGameTimer;
             timesUp();
         }
 
@@ -75,9 +78,27 @@ function timesUp() {
     console.log("Time is up!");
     
     // time is up.
-    // display correct answer countdown 10 seconds.
+    // display correct answer countdown seconds.
     // run getQuestion() for a new try
-    
+    nextQuestion();
+}
+
+function nextQuestion() {
+    nextQuestionTimer = newGameTimer;
+
+    nextQuestionDelay = setInterval(function() {
+        
+        $("#gameTimer").text("Get ready, next question in " + nextQuestionTimer + "...");
+        nextQuestionTimer--;
+
+        if (nextQuestionTimer === 0) {
+            clearInterval(nextQuestionDelay);
+            getQuestion();
+        }
+
+    },1000);
+
+
 }
 
 function checkAnswer(answer) {
