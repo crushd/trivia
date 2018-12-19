@@ -23,19 +23,31 @@ function getRandomNumber(min,max) {
 function gameOver() {
     // game is over
     clearInterval(answerTimer);
+    clearInterval(nextQuestionDelay);
+    questionCount = 0;
+    correctCount = 0;
+    incorrectCount = 0;
 
 }
 
-function getQuestion() {
+function getImage(q){
+ 
+    var imgQueryUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyC9V03VTwmWvUiJVE2QJBH5sWSnbJtXboU&q=" + q + "&searchType=image";
+
+    $.ajax({
+        url: imgQueryUrl,
+        method: "GET"
+    }).then(function(response) {
     
+        console.log(imgQueryUrl);
+
+    });
+}
+
+function getQuestion() {
+
     questionCount++;
-
-    console.log(questionCount);
-
-    if (questionCount === maxQuestions) {
-        console.log("Game over");
-        gameOver();
-    }
+    console.log(questionCount + " of " + maxQuestions + " questions.");
 
     answerList = [];
 
@@ -83,7 +95,6 @@ function getQuestion() {
         console.log("Good luck.");
 
         // start the clock
-        
         startTimer();
 
     });
@@ -116,14 +127,17 @@ function timesUp() {
     // display correct answer countdown seconds.
     // run getQuestion() for a new try
     
-    console.log("Correct: " + correctCount);
-    console.log("Incorrect: " + incorrectCount);
-    
     $("#answersContainer").hide();
     checkAnswer();
 }
 
 function nextQuestion() {
+
+    if (questionCount === maxQuestions) {
+        console.log("Game over");
+        gameOver();
+    }
+
     nextQuestionTimer = newNextQuestionTimer;
     //clearInterval(answerTimer);
 
@@ -167,9 +181,8 @@ function checkAnswer(answer) {
         isCorrect = false;
         incorrectCount++;
 
-        // console.log("Correct: " + correctCount);
-        // console.log("Incorrect: " + incorrectCount);
-        //console.log("Answer: " + answer);
+        console.log("Correct: " + correctCount);
+        console.log("Incorrect: " + incorrectCount);
 
         if (answer == null) {
             $("#answerStatus").text("You ran out of time.");
@@ -185,6 +198,8 @@ function checkAnswer(answer) {
         //nextQuestion();
 
     }
+
+    //getImage(correctAnswer);
 
     //console.log(isCorrect);
 
