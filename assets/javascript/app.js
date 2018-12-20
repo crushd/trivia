@@ -4,7 +4,7 @@ var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
 var newGameTimer = 8;
-var newNextQuestionTimer = 8;
+var newNextQuestionTimer = 4;
 
 var maxQuestions = 3; // max questions per round
 var questionCount = 0; // initialize question count

@@ -4,17 +4,9 @@ html,body {
     width:100%;
 }
 
-/* header {
-    background: url(../images/spiration_dark.png);
-} */
-
 header h1 {
     font-family: 'Luckiest Guy', cursive;
     padding-top:1em;
-}
-
-#question-container {
-    /* height:75%; */
 }
 
 .jumbotron {
@@ -29,11 +21,8 @@ header h1 {
 }
 
 .answerContainer {
-    /* text-align:center;
-    background-color:#4aaaa5; */
     font-weight:500;
     padding:1rem;
-    /* color: white; */
 }
 
 .correct {
