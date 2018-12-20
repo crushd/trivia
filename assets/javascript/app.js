@@ -203,7 +203,7 @@ function checkAnswer(answer) {
         updateScoreboard();
 
         if (answer == null) {
-            $("#answerStatus").text("You ran out of time.");
+            $("#answerStatus").text("You're out of time.");
         } else {
             $("#answerStatus").text("Sorry, that isn't correct");
         }
