@@ -137,6 +137,9 @@ function gameOver() {
         
         $('#totalCorrect').text("Correct: " + correctCount);
         $('#totalIncorrect').text("Incorrect: " + incorrectCount);
+
+        var correctPercentage = (correctCount/incorrectCount)*100;
+        $("#correct-percent").text(Math.round(correctPercentage) + "% Correct");
 }
 
 function nextQuestion() {
