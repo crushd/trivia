@@ -4,7 +4,7 @@ var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
 var newGameTimer = 8;
-var newNextQuestionTimer = 3;
+var newNextQuestionTimer = 8;
 
 var maxQuestions = 3;
 var questionCount = 0;
@@ -37,23 +37,23 @@ function getImage(q){
     });
 }
 
+function init() {
+    answerList = [];
+    $("#play-again").hide();
+    $("#answerStatus").text("");
+    $("#answerResult").text("");
+    $("#triviaQuestion").text("Loading...");
+    $("#answersContainer").show();
+    $("#question-image").empty();
+}
+
 function getQuestion() {
 
     questionCount++;
     console.log(questionCount + " of " + maxQuestions + " questions.");
 
-    answerList = [];
-
-    $("#answerStatus").text("");
-    $("#answerResult").text("");
-    $("#triviaQuestion").text("Loading...");
-    $("#play-again").hide();
-    $("#answer1").removeClass("correct incorrect").text("Loading...");
-    $("#answer2").removeClass("correct incorrect").text("Loading...");
-    $("#answer3").removeClass("correct incorrect").text("Loading...");
-    $("#answer4").removeClass("correct incorrect").text("Loading...");
-    $("#answersContainer").show();
-    $("#question-image").empty();
+    // initialize the game
+    init();
 
     // Get a random question
     var queryURL = "https://opentdb.com/api.php?amount=1&type=multiple";
@@ -113,12 +113,7 @@ function startTimer() {
 }
 
 function timesUp() {
-    console.log("Time's up!");
-    
-    // time is up.
-    // display correct answer countdown seconds.
-    // run getQuestion() for a new try
-    
+    //console.log("Time's up!");    
     $("#answersContainer").hide();
     checkAnswer();
 }
@@ -133,13 +128,8 @@ function gameOver() {
 }
 
 function nextQuestion() {
-    
-    // if (questionCount === maxQuestions) {
-    //     console.log("Game over");
-    // }
 
     nextQuestionTimer = newNextQuestionTimer;
-    //clearInterval(answerTimer);
 
     nextQuestionDelay = setInterval(function() {
         
@@ -155,45 +145,57 @@ function nextQuestion() {
 
 }
 
+function updateScoreboard() {
+
+    if (!isCorrect) {
+        incorrectCount++;
+    } else {
+        correctCount++;
+    }
+
+    $("#totalCorrect").text("Correct: " + correctCount);
+    $("#totalIncorrect").text("Incorrect: " + incorrectCount);
+}
+
+function checkGameStatus() {
+
+    if (questionCount < maxQuestions) {
+        nextQuestion();
+    } else {
+        console.log("game over");
+        gameOver();
+    }
+    
+}
+
 function checkAnswer(answer) {
     // code to match the user's answer to the correctAnswer variable.
 
     $("#question-image").show();
+    //getImage(correctAnswer);
+
     if (answer === correctAnswer) {
             
         clearInterval(answerTimer);
 
         isCorrect = true;
-        correctCount++;
-        $("#totalCorrect").text("Correct: " + correctCount);
-        $("#totalIncorrect").text("Incorrect: " + incorrectCount);
 
-
-        console.log("Correct: " + correctCount);
-        console.log("Incorrect: " + incorrectCount);
+        // update the counters & scoreboard
+        updateScoreboard();
 
         $("#answerStatus").text("Nice work, that's correct!");
         $("#answerResult").html(correctAnswer);
         $("#answersContainer").hide();
-        
-        if (questionCount < maxQuestions) {
-            nextQuestion();
-        } else {
-            console.log("game over");
-            gameOver();
-        }
+        checkGameStatus();
 
     } else {
 
         clearInterval(answerTimer);
 
         isCorrect = false;
-        incorrectCount++;
-        $("#totalCorrect").text("Correct: " + correctCount);
-        $("#totalIncorrect").text("Incorrect: " + incorrectCount);
 
-        console.log("Correct: " + correctCount);
-        console.log("Incorrect: " + incorrectCount);
+        // update the counters & scoreboard
+        updateScoreboard();
 
         if (answer == null) {
             $("#answerStatus").text("You ran out of time.");
@@ -201,23 +203,13 @@ function checkAnswer(answer) {
             $("#answerStatus").text("Sorry, that isn't correct");
         }
         
-        if (questionCount < maxQuestions) {
-            nextQuestion();
-        } else {
-            console.log("game over");
-            gameOver();
-        }
-        
         $("#answersContainer").hide();
         $("#answerResult").html("The correct answer is " + correctAnswer);
+        checkGameStatus();
 
     }
 
 }
-$("#play-again").on("click", function() {
-    console.log("play again");
-    location.reload();
-})
 
 $(document).ready(function() {
 
@@ -233,63 +225,30 @@ $(document).ready(function() {
     //     $("#answer" + (k+1)).on("click", function() {
     //         //console.log(answerList[k]);
     //         checkAnswer(answerList[k]);
-    
-    //         if (isCorrect) {
-    //             $(this).addClass( "correct" );
-    //         } else {
-    //             $(this).addClass( "incorrect" );
-    //         }
-    
-    
     //     });
 
     // }
 
 
     $("#answer1").on("click", function() {
-        //console.log(answerList[0]);
         checkAnswer(answerList[0]);
-
-        if (isCorrect) {
-            $(this).addClass( "correct" );
-        } else {
-            $(this).addClass( "incorrect" );
-        }
-
-
     });
 
     $("#answer2").on("click", function() {
-        //console.log(answerList[1]);
         checkAnswer(answerList[1]);
-        
-        if (isCorrect) {
-            $(this).addClass( "correct" );
-        } else {
-            $(this).addClass( "incorrect" );
-        }
     });
 
     $("#answer3").on("click", function() {
-        //console.log(answerList[2]);
         checkAnswer(answerList[2]);
-        
-        if (isCorrect) {
-            $(this).addClass( "correct" );
-        } else {
-            $(this).addClass( "incorrect" );
-        }
     });
 
     $("#answer4").on("click", function() {
-        //console.log(answerList[3]);
         checkAnswer(answerList[3]);
-        
-        if (isCorrect) {
-            $(this).addClass( "correct" );
-        } else {
-            $(this).addClass( "incorrect" );
-        }
     });
 
+})
+
+$("#play-again").on("click", function() {
+    //console.log("play again");
+    location.reload();
 })

@@ -28,24 +28,6 @@ header h1 {
     font-family: 'Luckiest Guy', cursive;
 }
 
-/* #questionBox h2, #questionBox div {
-    text-align:center;
-} 
-
-#questionBox div, #questionBox div:hover {
-    margin:1rem;
-}
-
-#questionBox div {
-    border:2px black solid;
-}
-
-#questionBox div:hover {
-    border:2px black dotted;
-    background-color:white;
-}
-*/
-
 .answerContainer {
     /* text-align:center;
     background-color:#4aaaa5; */
