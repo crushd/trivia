@@ -6,7 +6,7 @@ var isCorrect;
 var newGameTimer = 8;
 var newNextQuestionTimer = 4;
 
-var maxQuestions = 3; // max questions per round
+var maxQuestions = 12; // max questions per round
 var questionCount = 0; // initialize question count
 
 // create initial countdown timers to default
