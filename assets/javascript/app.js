@@ -6,16 +6,17 @@ var isCorrect;
 var newGameTimer = 8;
 var newNextQuestionTimer = 8;
 
-var maxQuestions = 3;
-var questionCount = 0;
+var maxQuestions = 3; // max questions per round
+var questionCount = 0; // initialize question count
 
-var gameTimer = newGameTimer;
+// create initial countdown timers to default
+var gameTimer = newGameTimer; 
 var nextQuestionTimer = newNextQuestionTimer;
 
-var correctCount = 0;
-var incorrectCount = 0;
+var correctCount = 0; // initialize correct question count
+var incorrectCount = 0; // initialize incorrect question count
 
-var questionImageUrl;
+var questionImageUrl; // declare a question image url variable
 
 // get a random number between a minimum and maximum value
 function getRandomNumber(min,max) {
@@ -88,9 +89,7 @@ function getQuestion() {
         // update the answer dom block on the front page
         for (j = 0 ; j < answerList.length ; j++) {
             $("#answer" + (j+1)).html(answerList[j]);
-        }       
-
-        //getImage(correctAnswer);
+        }
 
         // start the clock
         startTimer();
@@ -177,11 +176,8 @@ function checkGameStatus() {
 }
 
 function checkAnswer(answer) {
-    // code to match the user's answer to the correctAnswer variable.
 
     $("#question-image").show();
-    //$("#question-image").html("<img src=" + questionImageUrl + " width='50%' style='max-width:300px' />")
-    //getImage(correctAnswer);
 
     if (answer === correctAnswer) {
             
@@ -223,6 +219,7 @@ function checkAnswer(answer) {
 $(document).ready(function() {
 
     getQuestion();
+    //getImage(correctAnswer);
 
     // console.log(answerList);
     // console.log("Array Length: " + answerList.length);
@@ -258,6 +255,5 @@ $(document).ready(function() {
 })
 
 $("#play-again").on("click", function() {
-    //console.log("play again");
     location.reload();
 })
