@@ -18,6 +18,16 @@ var incorrectCount = 0; // initialize incorrect question count
 
 var questionImageUrl; // declare a question image url variable
 
+function init() {
+    answerList = [];
+    $("#play-again").hide();
+    $("#answerStatus").text("");
+    $("#answerResult").text("");
+    $("#triviaQuestion").text("Loading...");
+    $("#answersContainer").show();
+    $("#question-image").empty();
+}
+
 // get a random number between a minimum and maximum value
 function getRandomNumber(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -43,26 +53,16 @@ function getImage(q){
     });
 }
 
-function init() {
-    answerList = [];
-    $("#play-again").hide();
-    $("#answerStatus").text("");
-    $("#answerResult").text("");
-    $("#triviaQuestion").text("Loading...");
-    $("#answersContainer").show();
-    $("#question-image").empty();
-}
-
 function getQuestion() {
+
+    // Get a random question
+    var queryURL = "https://opentdb.com/api.php?amount=1&type=multiple";
 
     questionCount++;
     console.log(questionCount + " of " + maxQuestions + " questions.");
 
     // initialize the game
     init();
-
-    // Get a random question
-    var queryURL = "https://opentdb.com/api.php?amount=1&type=multiple";
 
     $.ajax({
         url: queryURL,
@@ -106,7 +106,7 @@ function startTimer() {
     gameTimer = newGameTimer;
 
     answerTimer = setInterval(function() {
-        $("#gameTimer").text(gameTimer);
+        $("#gameTimer").text("Time remaining: " + gameTimer);
         gameTimer--;
 
         if (gameTimer < 0) {
