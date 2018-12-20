@@ -38,7 +38,7 @@ header h1 {
 }
 
 .incorrectAnswer, .correctAnswer {
-    text-shadow: #666 2px 1px 3px;
+    text-shadow: #666 1px 1px 1px;
 }
 
 .incorrectAnswer {

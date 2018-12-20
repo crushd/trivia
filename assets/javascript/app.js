@@ -62,6 +62,8 @@ function getQuestion() {
     questionCount++;
     console.log(questionCount + " of " + maxQuestions + " questions.");
 
+    $("#question-count").text(questionCount + " of " + maxQuestions + " Questions")
+
     // initialize the game
     init();
 
