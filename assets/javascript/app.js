@@ -169,7 +169,8 @@ function checkGameStatus() {
     if (questionCount < maxQuestions) {
         nextQuestion();
     } else {
-        console.log("game over");
+        console.log("Game over.");
+        console.log("Yup: " +correctCount+ ". Nope: " +incorrectCount+ "." );
         gameOver();
     }
     
@@ -180,7 +181,7 @@ function checkAnswer(answer) {
     $("#question-image").show();
 
     if (answer === correctAnswer) {
-            
+        console.log("Yup. " + correctAnswer + ".");
         clearInterval(answerTimer);
 
         isCorrect = true;
@@ -194,7 +195,7 @@ function checkAnswer(answer) {
         checkGameStatus();
 
     } else {
-
+        console.log("Nope. " + correctAnswer + ".");
         clearInterval(answerTimer);
 
         isCorrect = false;
