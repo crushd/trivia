@@ -4,7 +4,7 @@ var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
 var newGameTimer = 10;
-var newNextQuestionTimer = 3;
+var newNextQuestionTimer = 10;
 
 var maxQuestions = 3;
 var questionCount = 0;
@@ -32,14 +32,17 @@ function gameOver() {
 
 function getImage(q){
  
-    var imgQueryUrl = "https://www.googleapis.com/customsearch/v1?key=AIzaSyC9V03VTwmWvUiJVE2QJBH5sWSnbJtXboU&q=" + q + "&searchType=image";
+    var imgQueryUrl = "https://contextualwebsearch-websearch-v1.p.mashape.com/api/Search/ImageSearchAPI?autoCorrect=true&count=1&q=" + q;
 
     $.ajax({
         url: imgQueryUrl,
-        method: "GET"
+        method: "GET",
+        headers: {"X-Mashape-Key": "s8OGlGrWuNmshWm627QaDWgwEgGvp1TRVR4jsnUsKk9hud3VpK"}
     }).then(function(response) {
     
-        console.log(imgQueryUrl);
+        console.log(response.value[0].url);
+        //$("#question-image").createElement("<img>");
+        $("#question-image").html("<img src=" + response.value[0].url + " width='50%' />")
 
     });
 }
@@ -59,6 +62,7 @@ function getQuestion() {
     $("#answer3").removeClass("correct incorrect").text("Loading...");
     $("#answer4").removeClass("correct incorrect").text("Loading...");
     $("#answersContainer").show();
+    $("#question-image").empty();
 
     // Get a random question
     var queryURL = "https://opentdb.com/api.php?amount=1&type=multiple";
@@ -158,6 +162,7 @@ function nextQuestion() {
 function checkAnswer(answer) {
     // code to match the user's answer to the correctAnswer variable.
 
+    $("#question-image").show();
     if (answer === correctAnswer) {
             
         clearInterval(answerTimer);
@@ -199,7 +204,7 @@ function checkAnswer(answer) {
 
     }
 
-    //getImage(correctAnswer);
+    getImage(correctAnswer);
 
     //console.log(isCorrect);
 
