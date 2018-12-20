@@ -26,7 +26,10 @@ function init() {
     $("#triviaQuestion").text("Loading...");
     $("#answersContainer").show();
     $("#question-image").empty();
-    $("#answer-result").removeClass("correctAnswer incorrectAnswer");
+    $("#answer1").text("Loading...");
+    $("#answer2").text("Loading...");
+    $("#answer3").text("Loading...");
+    $("#answer4").text("Loading...");
 }
 
 // get a random number between a minimum and maximum value
@@ -184,6 +187,8 @@ function checkAnswer(answer) {
     $("#question-image").show();
 
     if (answer === correctAnswer) {
+        $("#answerStatus").removeClass("incorrectAnswer");
+
         console.log("Yup. " + correctAnswer + ".");
         clearInterval(answerTimer);
 
@@ -192,11 +197,13 @@ function checkAnswer(answer) {
         // update the counters & scoreboard
         updateScoreboard();
 
-        $("#answerStatus").text("Nice work, " +correctAnswer+ " is correct!").addClass("correctAnswer");
+        $("#answerStatus").html("Nice work, " +correctAnswer+ " is correct!").addClass("correctAnswer");
         $("#answersContainer").hide();
         checkGameStatus();
 
     } else {
+        $("#answerStatus").removeClass("correctAnswer");
+
         console.log("Nope. " + correctAnswer + ".");
         clearInterval(answerTimer);
 
@@ -206,9 +213,9 @@ function checkAnswer(answer) {
         updateScoreboard();
 
         if (answer == null) {
-            $("#answerStatus").text("You're out of time. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
+            $("#answerStatus").html("You're out of time. The correct answer is " + correctAnswer);
         } else {
-            $("#answerStatus").text("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
+            $("#answerStatus").html("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
         }
         
         $("#answersContainer").hide();
