@@ -213,7 +213,7 @@ function checkAnswer(answer) {
         updateScoreboard();
 
         if (answer == null) {
-            $("#answerStatus").html("You're out of time. The correct answer is " + correctAnswer);
+            $("#answerStatus").html("You're out of time. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
         } else {
             $("#answerStatus").html("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
         }
