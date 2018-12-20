@@ -15,6 +15,8 @@ var nextQuestionTimer = newNextQuestionTimer;
 var correctCount = 0;
 var incorrectCount = 0;
 
+var questionImageUrl;
+
 // get a random number between a minimum and maximum value
 function getRandomNumber(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -31,8 +33,11 @@ function getImage(q){
     }).then(function(response) {
     
         console.log(response.value[0].url);
+        questionImageUrl = response.value[0].url;
         //$("#question-image").createElement("<img>");
-        $("#question-image").html("<img src=" + response.value[0].url + " width='50%' />")
+        //$("#question-image").html("<img src=" + response.value[0].url + " width='50%' />")
+
+        return questionImageUrl;
 
     });
 }
@@ -84,6 +89,8 @@ function getQuestion() {
         for (j = 0 ; j < answerList.length ; j++) {
             $("#answer" + (j+1)).html(answerList[j]);
         }       
+
+        //getImage(correctAnswer);
 
         // start the clock
         startTimer();
@@ -155,6 +162,7 @@ function updateScoreboard() {
 
     $("#totalCorrect").text("Correct: " + correctCount);
     $("#totalIncorrect").text("Incorrect: " + incorrectCount);
+
 }
 
 function checkGameStatus() {
@@ -172,6 +180,7 @@ function checkAnswer(answer) {
     // code to match the user's answer to the correctAnswer variable.
 
     $("#question-image").show();
+    //$("#question-image").html("<img src=" + questionImageUrl + " width='50%' style='max-width:300px' />")
     //getImage(correctAnswer);
 
     if (answer === correctAnswer) {
