@@ -26,6 +26,7 @@ function init() {
     $("#triviaQuestion").text("Loading...");
     $("#answersContainer").show();
     $("#question-image").empty();
+    $("#answer-result").removeClass("correctAnswer incorrectAnswer");
 }
 
 // get a random number between a minimum and maximum value
