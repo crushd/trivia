@@ -189,8 +189,7 @@ function checkAnswer(answer) {
         // update the counters & scoreboard
         updateScoreboard();
 
-        $("#answerStatus").text("Nice work, that's correct!");
-        $("#answerResult").html(correctAnswer);
+        $("#answerStatus").text("Nice work, " +correctAnswer+ " is correct!");
         $("#answersContainer").hide();
         checkGameStatus();
 
@@ -204,13 +203,12 @@ function checkAnswer(answer) {
         updateScoreboard();
 
         if (answer == null) {
-            $("#answerStatus").text("You're out of time.");
+            $("#answerStatus").text("You're out of time. The correct answer is " + correctAnswer);
         } else {
-            $("#answerStatus").text("Sorry, that isn't correct");
+            $("#answerStatus").text("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer);
         }
         
         $("#answersContainer").hide();
-        $("#answerResult").html("The correct answer is " + correctAnswer);
         checkGameStatus();
 
     }
