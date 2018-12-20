@@ -3,8 +3,8 @@
 var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
-var newGameTimer = 10;
-var newNextQuestionTimer = 10;
+var newGameTimer = 8;
+var newNextQuestionTimer = 5;
 
 var maxQuestions = 3;
 var questionCount = 0;
@@ -89,6 +89,8 @@ function getQuestion() {
         // shove that variable in some random spot in the answerList array
         answerList.splice(getRandomNumber(0,answerList.length),0,correctAnswer);
 
+
+
         // update the answer dom block on the front page
         $("#answer1").html(answerList[0]);
         $("#answer2").html(answerList[1]);
@@ -136,10 +138,14 @@ function timesUp() {
 }
 
 function nextQuestion() {
-
+    
     if (questionCount === maxQuestions) {
+        clearInterval(answerTimer);
+        clearInterval(nextQuestionDelay);
         console.log("Game over");
         gameOver();
+
+        $("gameTimer").empty();
     }
 
     nextQuestionTimer = newNextQuestionTimer;
@@ -199,14 +205,8 @@ function checkAnswer(answer) {
         
         $("#answersContainer").hide();
         $("#answerResult").html("The correct answer was " + correctAnswer);
-        
-        //nextQuestion();
 
     }
-
-    getImage(correctAnswer);
-
-    //console.log(isCorrect);
 
 }
 
