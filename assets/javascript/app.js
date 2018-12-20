@@ -4,7 +4,7 @@ var answerList = []; // set up a blank array to hold all of the answer choices
 var correctAnswer;   // declare the correctAnswer variable;
 var isCorrect;
 var newGameTimer = 8;
-var newNextQuestionTimer = 5;
+var newNextQuestionTimer = 3;
 
 var maxQuestions = 3;
 var questionCount = 0;
@@ -18,16 +18,6 @@ var incorrectCount = 0;
 // get a random number between a minimum and maximum value
 function getRandomNumber(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
-}
-
-function gameOver() {
-    // game is over
-    clearInterval(answerTimer);
-    clearInterval(nextQuestionDelay);
-    questionCount = 0;
-    correctCount = 0;
-    incorrectCount = 0;
-
 }
 
 function getImage(q){
@@ -57,6 +47,7 @@ function getQuestion() {
     $("#answerStatus").text("");
     $("#answerResult").text("");
     $("#triviaQuestion").text("Loading...");
+    $("#play-again").hide();
     $("#answer1").removeClass("correct incorrect").text("Loading...");
     $("#answer2").removeClass("correct incorrect").text("Loading...");
     $("#answer3").removeClass("correct incorrect").text("Loading...");
@@ -89,23 +80,18 @@ function getQuestion() {
         // shove that variable in some random spot in the answerList array
         answerList.splice(getRandomNumber(0,answerList.length),0,correctAnswer);
 
-
-
         // update the answer dom block on the front page
-        $("#answer1").html(answerList[0]);
-        $("#answer2").html(answerList[1]);
-        $("#answer3").html(answerList[2]);
-        $("#answer4").html(answerList[3]);
-
-        //console.log("Answers: " + answerList + ". Correct: " + correctAnswer);
-        console.log("Good luck.");
+        for (j = 0 ; j < answerList.length ; j++) {
+            $("#answer" + (j+1)).html(answerList[j]);
+        }       
 
         // start the clock
         startTimer();
 
+        return answerList;
+
     });
 
-    
 
 }
 
@@ -137,16 +123,20 @@ function timesUp() {
     checkAnswer();
 }
 
+function gameOver() {
+        $("#gameTimer").text("Game over!");
+        $('#final-results').show();
+        $('#play-again').show();
+        
+        $('#totalCorrect').text("Correct: " + correctCount);
+        $('#totalIncorrect').text("Incorrect: " + incorrectCount);
+}
+
 function nextQuestion() {
     
-    if (questionCount === maxQuestions) {
-        clearInterval(answerTimer);
-        clearInterval(nextQuestionDelay);
-        console.log("Game over");
-        gameOver();
-
-        $("gameTimer").empty();
-    }
+    // if (questionCount === maxQuestions) {
+    //     console.log("Game over");
+    // }
 
     nextQuestionTimer = newNextQuestionTimer;
     //clearInterval(answerTimer);
@@ -175,6 +165,9 @@ function checkAnswer(answer) {
 
         isCorrect = true;
         correctCount++;
+        $("#totalCorrect").text("Correct: " + correctCount);
+        $("#totalIncorrect").text("Incorrect: " + incorrectCount);
+
 
         console.log("Correct: " + correctCount);
         console.log("Incorrect: " + incorrectCount);
@@ -182,8 +175,13 @@ function checkAnswer(answer) {
         $("#answerStatus").text("Nice work, that's correct!");
         $("#answerResult").html(correctAnswer);
         $("#answersContainer").hide();
-
-        nextQuestion();
+        
+        if (questionCount < maxQuestions) {
+            nextQuestion();
+        } else {
+            console.log("game over");
+            gameOver();
+        }
 
     } else {
 
@@ -191,6 +189,8 @@ function checkAnswer(answer) {
 
         isCorrect = false;
         incorrectCount++;
+        $("#totalCorrect").text("Correct: " + correctCount);
+        $("#totalIncorrect").text("Incorrect: " + incorrectCount);
 
         console.log("Correct: " + correctCount);
         console.log("Incorrect: " + incorrectCount);
@@ -201,19 +201,50 @@ function checkAnswer(answer) {
             $("#answerStatus").text("Sorry, that isn't correct");
         }
         
-        nextQuestion();
+        if (questionCount < maxQuestions) {
+            nextQuestion();
+        } else {
+            console.log("game over");
+            gameOver();
+        }
         
         $("#answersContainer").hide();
-        $("#answerResult").html("The correct answer was " + correctAnswer);
+        $("#answerResult").html("The correct answer is " + correctAnswer);
 
     }
 
 }
-
+$("#play-again").on("click", function() {
+    console.log("play again");
+    location.reload();
+})
 
 $(document).ready(function() {
 
     getQuestion();
+
+    // console.log(answerList);
+    // console.log("Array Length: " + answerList.length);
+
+    // for (k = 0 ; k < answerList.length ; k++) {
+        
+    //     console.log(answerList[k]);
+
+    //     $("#answer" + (k+1)).on("click", function() {
+    //         //console.log(answerList[k]);
+    //         checkAnswer(answerList[k]);
+    
+    //         if (isCorrect) {
+    //             $(this).addClass( "correct" );
+    //         } else {
+    //             $(this).addClass( "incorrect" );
+    //         }
+    
+    
+    //     });
+
+    // }
+
 
     $("#answer1").on("click", function() {
         //console.log(answerList[0]);
