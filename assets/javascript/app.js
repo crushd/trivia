@@ -189,7 +189,7 @@ function checkAnswer(answer) {
         // update the counters & scoreboard
         updateScoreboard();
 
-        $("#answerStatus").text("Nice work, " +correctAnswer+ " is correct!");
+        $("#answerStatus").text("Nice work, " +correctAnswer+ " is correct!").addClass("correctAnswer");
         $("#answersContainer").hide();
         checkGameStatus();
 
@@ -203,9 +203,9 @@ function checkAnswer(answer) {
         updateScoreboard();
 
         if (answer == null) {
-            $("#answerStatus").text("You're out of time. The correct answer is " + correctAnswer);
+            $("#answerStatus").text("You're out of time. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
         } else {
-            $("#answerStatus").text("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer);
+            $("#answerStatus").text("Sorry, " +answer+ " is incorrect. The correct answer is " + correctAnswer).addClass("incorrectAnswer");
         }
         
         $("#answersContainer").hide();

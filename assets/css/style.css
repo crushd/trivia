@@ -37,6 +37,18 @@ header h1 {
     font-weight:bold;
 }
 
+.incorrectAnswer, .correctAnswer {
+    text-shadow: #666 2px 1px 3px;
+}
+
+.incorrectAnswer {
+    color: red;
+}
+
+.correctAnswer {
+    color: darkgreen;
+}
+
 header, footer {
     text-align:center;
 }
